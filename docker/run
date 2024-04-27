@@ -16,13 +16,13 @@ if [ -z "${device}" ]; then
     exit 1
 fi
 
-if [ -z "${command}" ]; then
-    command = "aplay -D ${device} -r 22050 -c 1 -f S16_LE -t raw"
+if [ -z "${program}" ]; then
+    program = "aplay -D ${device} -r 22050 -c 1 -f S16_LE -t raw"
 fi
 
 /app/script/run \
     --uri tcp://0.0.0.0:10601 \
-    --program "${command}" \
+    --program "${program}" \
     --rate 22050  \
     --width 2 \
     --channels 1 "${args[@]}"
