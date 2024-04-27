@@ -17,7 +17,7 @@ if [ -z "${device}" ]; then
 fi
 
 if [ -z "${program}" ]; then
-    program = "aplay -D ${device} -r 22050 -c 1 -f S16_LE -t raw"
+    program="aplay -D ${device} -r 22050 -c 1 -f S16_LE -t raw"
 fi
 
 /app/script/run \
