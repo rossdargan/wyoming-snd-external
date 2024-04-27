@@ -94,6 +94,7 @@ class ExternalEventHandler(AsyncEventHandler):
         elif AudioStop.is_type(event.type):
             await self.write_event(Played().event())
         elif AudioChunk.is_type(event.type):
+            _LOGGER.debug("Handling Chunk %s", self.command)
             await self._start_proc()
 
             chunk = AudioChunk.from_event(event)
@@ -122,6 +123,7 @@ class ExternalEventHandler(AsyncEventHandler):
         if self._proc is None:
             return
 
+        _LOGGER.debug("Stopping %s", self.command)
         try:
             self._proc.stdin.write_eof()
             await self._proc.stdin.wait_closed()
