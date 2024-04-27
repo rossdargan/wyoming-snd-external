@@ -114,9 +114,12 @@ class ExternalEventHandler(AsyncEventHandler):
             return
 
         _LOGGER.debug("Running %s", self.command)
-        self._proc = await asyncio.create_subprocess_exec(
-            self.command[0], *self.command[1:], stdin=asyncio.subprocess.PIPE
-        )
+        try:
+            self._proc = await asyncio.create_subprocess_exec(
+                self.command[0], *self.command[1:], stdin=asyncio.subprocess.PIPE
+           )
+        except Exception as e:
+            _LOGGER.error("Unable to create subprocess. %s", e)
         assert self._proc.stdin is not None
 
     async def _stop_proc(self) -> None:
