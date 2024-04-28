@@ -20,6 +20,8 @@ if [ -z "${program}" ]; then
     program="aplay -D ${device} -r 22050 -c 1 -f S16_LE -t raw"
 fi
 
+pulseaudio --start
+
 /app/script/run \
     --uri tcp://0.0.0.0:10601 \
     --program "${program}" \
