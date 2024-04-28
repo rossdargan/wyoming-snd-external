@@ -2,7 +2,6 @@ FROM python:3.11-bookworm
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native
 
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends alsa-utils pulseaudio
