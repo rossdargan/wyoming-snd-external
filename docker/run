@@ -20,7 +20,7 @@ if [ -z "${program}" ]; then
     program="aplay -D ${device} -r 22050 -c 1 -f S16_LE -t raw"
 fi
 
-pulseaudio --system --disallow-exit --disallow-module-loading=1 --daemonize=yes -F /etc/pulse/system.pa
+# pulseaudio --system --disallow-exit --disallow-module-loading=1 --daemonize=yes -F /etc/pulse/system.pa
 
 /app/script/run \
     --uri tcp://0.0.0.0:10601 \
@@ -28,4 +28,3 @@ pulseaudio --system --disallow-exit --disallow-module-loading=1 --daemonize=yes 
     --rate 22050  \
     --width 2 \
     --channels 1 "${args[@]}"
- 

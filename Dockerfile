@@ -13,6 +13,7 @@ COPY setup.py requirements.txt MANIFEST.in ./
 COPY wyoming_snd_external/ ./wyoming_snd_external/
 
 RUN script/setup
+RUN echo load-module module-role-ducking trigger_roles=phone ducking_roles=music volume=0.0 >> /etc/pulse/default.pa
 
 COPY script/run ./script/
 COPY docker/run ./
