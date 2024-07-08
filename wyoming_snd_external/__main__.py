@@ -94,6 +94,7 @@ class ExternalEventHandler(AsyncEventHandler):
         elif AudioStop.is_type(event.type):
             await self.write_event(Played().event())
         elif AudioChunk.is_type(event.type):
+            _LOGGER.debug("Handling Chunk %s", self.command)
             await self._start_proc()
 
             chunk = AudioChunk.from_event(event)
@@ -113,15 +114,19 @@ class ExternalEventHandler(AsyncEventHandler):
             return
 
         _LOGGER.debug("Running %s", self.command)
-        self._proc = await asyncio.create_subprocess_exec(
-            self.command[0], *self.command[1:], stdin=asyncio.subprocess.PIPE
-        )
+        try:
+            self._proc = await asyncio.create_subprocess_exec(
+                self.command[0], *self.command[1:], stdin=asyncio.subprocess.PIPE
+           )
+        except Exception as e:
+            _LOGGER.error("Unable to create subprocess. %s", e)
         assert self._proc.stdin is not None
 
     async def _stop_proc(self) -> None:
         if self._proc is None:
             return
 
+        _LOGGER.debug("Stopping %s", self.command)
         try:
             self._proc.stdin.write_eof()
             await self._proc.stdin.wait_closed()

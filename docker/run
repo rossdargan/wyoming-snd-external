@@ -11,14 +11,20 @@ while [ -n "$1" ]; do
     shift
 done
 
-if [ -z "${device}" ]; then
+if [ -z "${device}" && -z "${program}" ]; then
     echo "--device <NAME> is required. Run 'aplay -L' for a list (prefer plughw: devices)."
     exit 1
 fi
 
+if [ -z "${program}" ]; then
+    program="aplay -D ${device} -r 22050 -c 1 -f S16_LE -t raw"
+fi
+
+# pulseaudio --system --disallow-exit --disallow-module-loading=1 --daemonize=yes -F /etc/pulse/system.pa
+
 /app/script/run \
     --uri tcp://0.0.0.0:10601 \
-    --program "aplay -D ${device} -r 22050 -c 1 -f S16_LE -t raw" \
+    --program "${program}" \
     --rate 22050  \
     --width 2 \
     --channels 1 "${args[@]}"
