@@ -5,6 +5,10 @@
 The external program must receive raw PCM audio on its standard input.
 The format will match the `--rate`, `--width`, and `--channel` arguments provided to the server.
 
+# Useful Links:
+* https://github.com/mviereck/x11docker/wiki/Container-sound:-ALSA-or-Pulseaudio
+* https://github.com/FutureProofHomes/wyoming-enhancements/blob/master/snapcast/docs/2_install_pulseaudio.md
+
 ## Installation
 
 ``` sh
